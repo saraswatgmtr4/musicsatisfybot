@@ -1,19 +1,19 @@
 
-py-tgcalls==0.5.5
 python-dotenv
 youtube_dl
 youtube_search_python
 requests
 aiohttp
-aiofiles
 asyncio
 youtube_search
 search_engine_parser
-ffmpeg
 Pillow
 future
 psutil
 wget
 tswift
-pyrogram==2.0.106  # or latest 2.x version
-tgcrypto==1.4.3    # required for speed
+pyrogram==2.0.106
+tgcrypto==1.4.3
+ffmpeg-python==0.2.0
+pytgcalls==2.0.1
+aiofiles==23.1.0
