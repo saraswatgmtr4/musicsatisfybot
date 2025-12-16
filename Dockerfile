@@ -1,11 +1,12 @@
-# Use Python 3.9 on Debian Bullseye
+# Base image: Python 3.9 on Debian Bullseye
 FROM python:3.9-slim-bullseye
 
-# Avoid prompts during package installation
+# Avoid interactive prompts during apt install
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies and Node.js prerequisites
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install system dependencies, Node.js 20 LTS, and clean apt cache
+RUN apt-get update -qq && \
+    apt-get install -y --no-install-recommends \
         git \
         curl \
         ffmpeg \
@@ -13,14 +14,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         gnupg2 \
         ca-certificates \
         python3-pip \
-        wget \
-        dirmngr \
+        apt-transport-https \
         lsb-release \
         sudo && \
-    rm -rf /var/lib/apt/lists/*
-
-# Install Node.js 16.x
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g npm && \
     rm -rf /var/lib/apt/lists/*
