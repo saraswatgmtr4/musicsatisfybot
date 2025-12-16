@@ -1,11 +1,10 @@
-# Base image: Python 3.9 on Debian Bullseye
-FROM python:3.10-slim
+# ---- Base Image ----
+FROM python:3.10-slim-bullseye
 
-# Avoid interactive prompts during apt install
-ENV DEBIAN_FRONTEND=noninteractive
+# ---- Set working directory ----
+WORKDIR /app
 
-# Install system dependencies, Node.js 20 LTS, and clean apt cache
-# Install system dependencies
+# ---- Install system dependencies ----
 RUN apt-get update && apt-get install -y \
         git \
         curl \
@@ -18,30 +17,29 @@ RUN apt-get update && apt-get install -y \
         libxslt1-dev \
         zlib1g-dev \
         libjpeg-dev \
-        libpq-dev && \
-    rm -rf /var/lib/apt/lists/*
+        gnupg2 \
+        ca-certificates \
+        lsb-release \
+        sudo \
+        wget \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-COPY requirements.txt /app/requirements.txt
-RUN pip install --upgrade pip setuptools wheel
-RUN pip install --no-cache-dir -r /app/requirements.txt
+# ---- Install Node.js 20 LTS ----
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm \
+    && rm -rf /var/lib/apt/lists/*
 
-
-# Upgrade pip
-RUN pip3 install --no-cache-dir --upgrade pip
-
-# Set working directory
-WORKDIR /app
-
-# Copy project files
+# ---- Copy app files ----
 COPY . /app
 
-# Install Python dependencies
+# ---- Upgrade pip and install Python dependencies ----
+RUN pip install --upgrade pip setuptools wheel
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Default command
-CMD ["python3", "main.py"]
+# ---- Set environment variables for Railway ----
+# Railway will automatically inject ENV variables like API_ID, API_HASH, TOKEN, etc.
+# Make sure you add these in Railway Dashboard: Settings → Variables
 
-
-
-
+# ---- Run the bot ----
+CMD ["python", "main.py"]
