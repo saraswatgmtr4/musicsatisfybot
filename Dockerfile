@@ -1,12 +1,12 @@
 # Base image: Python 3.9 on Debian Bullseye
-FROM python:3.9-slim-bullseye
+FROM python:3.10-slim
 
 # Avoid interactive prompts during apt install
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install system dependencies, Node.js 20 LTS, and clean apt cache
-RUN apt-get update -qq && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y git curl ffmpeg build-essential && \
         git \
         curl \
         ffmpeg \
@@ -29,10 +29,14 @@ RUN pip3 install --no-cache-dir --upgrade pip
 WORKDIR /app
 
 # Copy project files
-COPY . .
+COPY . /app
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Default command
 CMD ["python3", "main.py"]
+
+
+
+
