@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install system dependencies, Node.js 20 LTS, and clean apt cache
 RUN apt-get update && \
-    apt-get install -y git curl ffmpeg build-essential && \
+    apt-get install -y \
         git \
         curl \
         ffmpeg \
@@ -21,6 +21,7 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     npm install -g npm && \
     rm -rf /var/lib/apt/lists/*
+
 
 # Upgrade pip
 RUN pip3 install --no-cache-dir --upgrade pip
