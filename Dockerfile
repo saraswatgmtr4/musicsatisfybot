@@ -1,18 +1,26 @@
-# Use Python 3.9 on a supported Debian base
+# Use Python 3.9 on Debian Bullseye
 FROM python:3.9-slim-bullseye
 
-# Set environment variables to avoid prompts during installs
+# Avoid prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies, Node.js, and clean up apt cache
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
+# Install system dependencies and Node.js prerequisites
+RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         curl \
         ffmpeg \
         build-essential \
-        python3-pip && \
-    curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+        gnupg2 \
+        ca-certificates \
+        python3-pip \
+        wget \
+        dirmngr \
+        lsb-release \
+        sudo && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Node.js 16.x
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g npm && \
     rm -rf /var/lib/apt/lists/*
