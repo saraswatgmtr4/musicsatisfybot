@@ -5,22 +5,26 @@ FROM python:3.10-slim
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install system dependencies, Node.js 20 LTS, and clean apt cache
-RUN apt-get update && \
-    apt-get install -y \
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
         git \
         curl \
         ffmpeg \
         build-essential \
-        gnupg2 \
-        ca-certificates \
-        python3-pip \
-        apt-transport-https \
-        lsb-release \
-        sudo && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g npm && \
+        python3-dev \
+        libffi-dev \
+        libssl-dev \
+        libxml2-dev \
+        libxslt1-dev \
+        zlib1g-dev \
+        libjpeg-dev \
+        libpq-dev && \
     rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt /app/requirements.txt
+RUN pip install --upgrade pip setuptools wheel
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 
 # Upgrade pip
