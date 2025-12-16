@@ -1,5 +1,4 @@
-pyrogram
-tgcrypto
+
 py-tgcalls==0.5.5
 python-dotenv
 youtube_dl
@@ -16,3 +15,5 @@ future
 psutil
 wget
 tswift
+pyrogram==2.0.106  # or latest 2.x version
+tgcrypto==1.4.3    # required for speed
