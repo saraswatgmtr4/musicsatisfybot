@@ -1,5 +1,6 @@
 from pyrogram import Client
-from pytgcalls import PyTgCalls  # Clean import for v3
+import pytgcalls
+from pytgcalls.pytgcalls import PyTgCalls as PyTgCalls  # Clean import for v3
 import config
 from . import queues
 import asyncio
