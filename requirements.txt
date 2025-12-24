@@ -1,10 +1,8 @@
-
 python-dotenv
-youtube_dl
+yt-dlp
 youtube_search_python
 requests
 aiohttp
-asyncio
 youtube_search
 search_engine_parser
 Pillow
@@ -13,7 +11,7 @@ psutil
 wget
 tswift
 pyrogram==2.0.106
-tgcrypto>=1.2.0
+tgcrypto>=1.2.5
 ffmpeg-python==0.2.0
 pytgcalls==3.0.0.dev24
 aiofiles==23.1.0
