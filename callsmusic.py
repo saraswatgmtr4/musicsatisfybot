@@ -1,5 +1,5 @@
 from pyrogram import Client
-from pytgcalls import PyTgCalls
+from pytgcalls.pytgcalls import PyTgCalls
 # If the above still fails in v3 dev versions, try:
 # from pytgcalls.pytgcalls import PyTgCalls
 
