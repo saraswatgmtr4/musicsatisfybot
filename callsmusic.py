@@ -1,30 +1,27 @@
 from pyrogram import Client
-from pytgcalls.pytgcalls import PyTgCalls # Updated Import
-import asyncio
+from pytgcalls.pytgcalls import PyTgCalls  # Updated path for v3
+from pytgcalls import filters
 import config
 from . import queues
 
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
 pytgcalls = PyTgCalls(client)
 
-# Handlers in v3 must be 'async'
+# Handlers must now be 'async'
 @pytgcalls.on_stream_end()
 async def on_stream_end(client: PyTgCalls, update):
     chat_id = update.chat_id
     queues.task_done(chat_id)
 
     if queues.is_empty(chat_id):
-        # leave_group_call is now leave_call in v3
+        # 'leave_group_call' is now 'leave_call'
         await pytgcalls.leave_call(chat_id)
     else:
-        # change_stream logic usually involves playing a new file
-        file_path = queues.get(chat_id)["file"]
-        # Implementation depends on your media type (AudioPiped, etc)
+        # Stream logic has changed; you'll likely use play() here next
         pass
 
-# The .run() method no longer exists in v3
+# The .run() method is gone. We create an async start function.
 async def run():
     await pytgcalls.start()
-    print("Bot is running...")
     from pyrogram import idle
     await idle()
