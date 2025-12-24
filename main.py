@@ -5,7 +5,7 @@ from pyrogram import idle
 from callsmusic import run, pytgcalls
 from config import API_ID, API_HASH, BOT_TOKEN, BG_IMAGE
 
-# Download background image
+# Setup
 response = requests.get(BG_IMAGE)
 with open("./etc/foreground.png", "wb") as file:
     file.write(response.content)
@@ -19,15 +19,11 @@ bot = Bot(
 )
 
 async def main():
-    # Start the Pyrogram Bot
     await bot.start()
-    # Start the PyTgCalls Engine
     await pytgcalls.start()
-    print("Bot and Music Engine Started!")
-    # Keep both running
+    print("BOT STARTED SUCCESSFULLY")
     await idle()
-    # Stop everything gracefully on exit
-    await bot.stop()
 
 if __name__ == "__main__":
+    # This is the modern way to run the async loop
     asyncio.get_event_loop().run_until_complete(main())
