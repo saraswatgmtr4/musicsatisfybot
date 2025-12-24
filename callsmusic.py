@@ -1,13 +1,16 @@
 from pyrogram import Client
-import pytgcalls
-from pytgcalls.pytgcalls import PyTgCalls as PyTgCalls  # Clean import for v3
 import config
 from . import queues
 import asyncio
 
+# This forces Python to find the class no matter where it's hidden
+try:
+    from pytgcalls import PyTgCalls
+except ImportError:
+    from pytgcalls.pytgcalls import PyTgCalls
+
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
 pytgcalls = PyTgCalls(client)
-
 @pytgcalls.on_stream_end()
 async def on_stream_end(client: PyTgCalls, update):
     chat_id = update.chat_id
