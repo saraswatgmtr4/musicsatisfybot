@@ -13,7 +13,7 @@ psutil
 wget
 tswift
 pyrogram==2.0.106
-tgcrypto==1.4.3
+tgcrypto>=1.2.0
 ffmpeg-python==0.2.0
 pytgcalls==2.0.1
 aiofiles==23.1.0
