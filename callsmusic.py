@@ -1,5 +1,7 @@
 from pyrogram import Client
-from pytgcalls.pytgcalls import PyTgCalls
+from pytgcalls import PyTgCalls
+# If the above still fails in v3 dev versions, try:
+# from pytgcalls.pytgcalls import PyTgCalls
 
 import config
 from . import queues
