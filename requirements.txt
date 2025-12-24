@@ -13,5 +13,5 @@ tswift
 pyrogram==2.0.106
 tgcrypto>=1.2.5
 ffmpeg-python==0.2.0
-pytgcalls==3.0.0.dev24
+pytgcalls==3.0.0.dev22
 aiofiles==23.1.0
