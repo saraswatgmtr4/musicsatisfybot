@@ -18,3 +18,4 @@ pyrogram==2.0.106
 pytgcalls==3.0.0.dev24
 # Remove the tgcalls line entirely; it is bundled with pytgcalls now
 aiofiles==23.1.0
+# BUILD_TRIGGER_V2: 0001
